@@ -1,0 +1,14 @@
+{
+  "name": "desafio-clase-6",
+  "version": "1.0.0",
+  "description": "Desafio clase 6 - express Server",
+  "main": "expressServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hernan Perez Masci",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
