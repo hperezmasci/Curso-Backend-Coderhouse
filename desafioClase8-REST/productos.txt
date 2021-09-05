@@ -1,0 +1,14 @@
+[
+  {
+    "title": "PS5",
+    "price": "179999",
+    "thumbnail": "products/ps5.jpg",
+    "id": 1
+  },
+  {
+    "title": "PS5 digital",
+    "price": "169999",
+    "thumbnail": "products/ps5digital.jpg",
+    "id": 2
+  }
+]
