@@ -10,14 +10,56 @@ const router = new Router()
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
+/*
 router.get('/', (req, res) => {
-    res.send('get ok')
+    const products = cont.getAll();
+    console.log(`productos: ${products}`)
+    res.send(products)
+})
+*/
+
+router.get('/', async (req, res) => {
+    try {
+        const products = await cont.getAll()
+        res.send(products)
+    }
+    catch (err) {throw new Error(`get: ${err}`)}
 })
 
-router.post('/', (req, res) => {
-    console.log(req.body)
-    cont.save(req.body)
-    res.json(req.body)
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await cont.getById(req.params.id)
+        res.send(product)
+        // XXX TODO: error al pedir ID que no existe
+    }
+    catch (err) {throw new Error(`get: ${err}`)}
+})
+
+router.post('/', async (req, res) => {
+    try {
+        cont.save(req.body)
+        res.json(req.body)
+    }
+    catch (err) {throw new Error(`post: ${err}`)}
+})
+
+router.put('/:id', async (req, res) => {
+    try {
+        await cont.deleteById(req.params.id)
+        // XXX TODO: error al pedir ID que no existe
+        cont.save(req.body)
+        res.json(req.body)
+    }
+    catch (err) {throw new Error(`post: ${err}`)}
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const product = await cont.deleteById(req.params.id)
+        // XXX TODO: error al pedir ID que no existe
+        res.send(product)
+    }
+    catch (err) {throw new Error(`get: ${err}`)}
 })
 
 const app = express()

@@ -6,9 +6,15 @@
     "id": 1
   },
   {
-    "title": "PS5 digital",
-    "price": "169999",
-    "thumbnail": "products/ps5digital.jpg",
-    "id": 2
+    "title": "dualsense",
+    "price": "10999",
+    "thumbail": "productos/dualsense.jpg",
+    "id": 4
+  },
+  {
+    "title": "ps5 digital",
+    "price": "159999",
+    "thumbail": "productos/ps5digital.jpg",
+    "id": 5
   }
 ]

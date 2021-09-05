@@ -37,7 +37,7 @@ class Contenedor {
     async getById(id) {
         try {
             const products = await this.getAll();
-            return products[products.findIndex(prod => prod.id === id)];
+            return products[products.findIndex(prod => prod.id == id)];
         }
         catch (err) {
             throw new Error(`getById method: ${err}`);  
@@ -59,7 +59,7 @@ class Contenedor {
             await this.deleteAll();
             //products.forEach(async (product) => {if (product.id !== id) {await this.save(product)}});
             for (let i=0; i<products.length; i++) {
-                if (products[i].id !== id) {
+                if (products[i].id != id) {
                     await this.save(products[i]);
                 }
             }

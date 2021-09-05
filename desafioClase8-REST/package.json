@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "description": "Servidor REST con Express y Router",
   "main": "server.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
