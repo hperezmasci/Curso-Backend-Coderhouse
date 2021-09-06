@@ -10,14 +10,6 @@ const router = new Router()
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
-/*
-router.get('/', (req, res) => {
-    const products = cont.getAll();
-    console.log(`productos: ${products}`)
-    res.send(products)
-})
-*/
-
 router.get('/', async (req, res) => {
     try {
         const products = await cont.getAll()
