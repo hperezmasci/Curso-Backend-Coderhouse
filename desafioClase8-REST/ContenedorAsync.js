@@ -1,4 +1,4 @@
-const fs = require('fs');
+import { promises, F_OK } from 'fs';
 
 class Contenedor {
     constructor(path) {
@@ -8,9 +8,9 @@ class Contenedor {
     async getAll() {
         try {
             // test if file exists
-            await fs.promises.access(this.path, fs.F_OK);
+            await promises.access(this.path, F_OK);
             // if exists and accesible, read file
-            const content = await fs.promises.readFile(this.path);
+            const content = await promises.readFile(this.path);
             return JSON.parse(content);
         }
         catch (err) {
@@ -27,7 +27,7 @@ class Contenedor {
             const len = products.length;
             if (product.id === undefined) {product.id = (len === 0 ? 0 : products[len-1].id) + 1};
             products.push(product);
-            await fs.promises.writeFile(this.path,JSON.stringify(products, null, 2));
+            await promises.writeFile(this.path,JSON.stringify(products, null, 2));
         }
         catch (err) {
             throw new Error(`save method: ${err}`);  
@@ -46,7 +46,7 @@ class Contenedor {
 
     async deleteAll() {
         try {
-            await fs.promises.writeFile(this.path, "[]");
+            await promises.writeFile(this.path, "[]");
         }
         catch (err) {
             throw new Error(`deleteAll method: ${err}`);  
@@ -57,7 +57,6 @@ class Contenedor {
         try {
             let products = await this.getAll();
             await this.deleteAll();
-            //products.forEach(async (product) => {if (product.id !== id) {await this.save(product)}});
             for (let i=0; i<products.length; i++) {
                 if (products[i].id != id) {
                     await this.save(products[i]);
@@ -70,4 +69,4 @@ class Contenedor {
     }
 }
 
-module.exports = Contenedor;
+export default Contenedor;

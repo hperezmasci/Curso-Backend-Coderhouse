@@ -1,5 +1,5 @@
-const express = require('express')
-const Contenedor = require('./ContenedorAsync')
+import express, { json, urlencoded } from 'express';
+import Contenedor from './ContenedorAsync.js';
 
 const cont = new Contenedor('productos.txt');
 
@@ -7,8 +7,8 @@ const { Router } = express
 
 const router = new Router()
 
-router.use(express.json())
-router.use(express.urlencoded({extended: true}))
+router.use(json())
+router.use(urlencoded({extended: true}))
 
 router.get('/', async (req, res) => {
     try {
@@ -21,8 +21,10 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const product = await cont.getById(req.params.id)
-        res.send(product)
-        // XXX TODO: error al pedir ID que no existe
+        if (typeof product === 'undefined')
+            res.status(400).send({error : 'producto no encontrado' })
+        else
+            res.send(product)
     }
     catch (err) {throw new Error(`get: ${err}`)}
 })
@@ -38,7 +40,6 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         await cont.deleteById(req.params.id)
-        // XXX TODO: error al pedir ID que no existe
         cont.save(req.body)
         res.json(req.body)
     }
@@ -48,7 +49,6 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const product = await cont.deleteById(req.params.id)
-        // XXX TODO: error al pedir ID que no existe
         res.send(product)
     }
     catch (err) {throw new Error(`get: ${err}`)}
@@ -57,6 +57,13 @@ router.delete('/:id', async (req, res) => {
 const app = express()
 
 app.use('/api/productos', router)
+
+app.use(function(err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send({error: `Internal server error: ${err}`})
+})
+  
+app.use(express.static('public'))
 
 const PORT = 8080
 

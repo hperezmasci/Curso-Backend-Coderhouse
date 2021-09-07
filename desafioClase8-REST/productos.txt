@@ -16,5 +16,11 @@
     "price": "159999",
     "thumbail": "productos/ps5digital.jpg",
     "id": 5
+  },
+  {
+    "title": "XBox Series X",
+    "price": "139999",
+    "thumbnail": "productos/xboxsx.jpg",
+    "id": 6
   }
 ]
