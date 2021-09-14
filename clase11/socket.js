@@ -10,7 +10,7 @@ const io = new IOServer(httpServer)     // IO server sobre el http server
 const PORT = 3030;
 const mensajes = [];
 
-app.use(express.static('./public'));
+app.use(express.static('./public-socket'));
 
 httpServer.listen(PORT, () => {
     console.log('Servidor HTTP escuchando en el puerto', PORT);

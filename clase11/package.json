@@ -4,11 +4,11 @@
     "socket.io": "^4.2.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node socket.js"
   },
   "name": "clase11",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "socket.js",
   "devDependencies": {},
   "author": "",
   "license": "ISC",
