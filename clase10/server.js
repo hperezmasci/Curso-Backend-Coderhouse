@@ -1,10 +1,17 @@
-import express from 'express';
+import express from 'express'
 
-const app = express();
-app.use(express.static('public'));
+const app = express()
 
-const PORT = 8080;
+app.set('views', './views')
+app.set('view engine', 'ejs')
+
+app.get('/datos', (req, res) => {
+    // alimenta de datos al template con el query string
+    res.render('nivel', req.query)
+})
+
+const PORT = 8080
 const server = app.listen(PORT, ()=>{
-    console.log('Servidor HTTP escuchando en el puerto', server.address().port);
-});
-server.on('error', error=>console.log('Error en servidor', error));
+    console.log('Servidor HTTP escuchando en el puerto', server.address().port)
+})
+server.on('error', error=>console.log('Error en servidor', error))
