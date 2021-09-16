@@ -1,5 +1,4 @@
 import express from 'express';
-import exphbs from 'express-handlebars';
 import Contenedor from './ContenedorAsync.js';
 
 const app = express()
@@ -11,9 +10,7 @@ const router = new Router();
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
-app.engine('handlebars', exphbs())
-app.set('view engine', 'handlebars')
-app.set('views', './views')
+app.set('view engine', 'ejs');
 
 const cont = new Contenedor("./data/productos.txt");
 
@@ -21,7 +18,7 @@ router.get('/', async (req, res) => {
     try {
         const products = await cont.getAll()
         const listExists = products.length
-        res.render('getProducts', {products, listExists})
+        res.render('pages/getProducts', {products, listExists})
     }
     catch (err) {throw new Error(`GET /productos: ${err}`)}
 })
@@ -29,6 +26,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
       const product = req.body;
+      //console.log(product)
       await cont.save(product)
       res.redirect('/')
   }

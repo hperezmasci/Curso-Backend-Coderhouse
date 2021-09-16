@@ -1,0 +1,19 @@
+<h1>Vista de Productos</h1>
+{{#if listExists}}
+    <table>
+        <tr><th>Nombre</th><th>Precio</th><th>Foto</th></tr>
+        {{#each products}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{price}}</td>
+            <td><img src="{{thumbnail}}"></img></td>
+        </tr>
+        {{/each}}
+    </table>
+{{else}}
+    <p>No hay productos</p>
+{{/if}}
+<hr>
+<form method="get" action="/">
+    <button type="submit">Ingresar Productos
+</form>

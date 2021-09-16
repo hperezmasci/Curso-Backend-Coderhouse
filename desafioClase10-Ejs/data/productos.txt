@@ -24,9 +24,9 @@
     "id": 4
   },
   {
-    "title": "Helado",
-    "price": "230",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/ice-cream-cup-sweets-frozen-128.png",
+    "title": "Papitas",
+    "price": "190",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/french-fries-snacks-fast-food-128.png",
     "id": 5
   }
 ]

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+
+<h1>Vista de Productos</h1>
+<% if (listExists) { %>
+    <table>
+        <tr><th>Nombre</th><th>Precio</th><th>Foto</th></tr>
+        <% products.forEach(function(prod) { %>
+        <tr>
+            <td><%= prod.title %></td>
+            <td><%= prod.price %></td>
+            <td><img src="<%= prod.thumbnail %>"></img></td>
+        </tr>
+        <% }); %>
+    </table>
+<% } else { %>
+    <p>No hay productos</p>
+<% } %>
+<hr>
+<form method="get" action="/">
+    <button type="submit">Ingresar Productos
+</form>
+
+</body>
+</html>
