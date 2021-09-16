@@ -6,22 +6,21 @@
 </head>
 
 <body>
-
-<h1>Vista de Productos</h1>
-<% if (listExists) { %>
     <table>
+        <tr><th colspan=3><h1>Vista de Productos</h1></th></tr>
         <tr><th>Nombre</th><th>Precio</th><th>Foto</th></tr>
-        <% products.forEach(function(prod) { %>
+        <% if (listExists) { %>
+            <% products.forEach(function(prod) { %>
         <tr>
             <td><%= prod.title %></td>
             <td><%= prod.price %></td>
             <td><img src="<%= prod.thumbnail %>"></img></td>
         </tr>
-        <% }); %>
+            <% }); %>
+        <% } else { %>
+            <tr><td colspan=3>No hay productos</td>
+        <% } %>
     </table>
-<% } else { %>
-    <p>No hay productos</p>
-<% } %>
 <hr>
 <form method="get" action="/">
     <button type="submit">Ingresar Productos

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <head>
     <title>Formulario Ingreso Productos</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h2>Ingrese Producto</h2>
     <form action="/productos" method="POST">
-        Título: <input type="text" name="title">
-        Precio: <input type="text" name="price">
-        Foto: <input type="text" name="thumbnail">
-
-        Submit <input type="submit">
+        <table>
+            <th colspan=2>Ingrese Producto</th>
+            <tr><td>Título</td><td><input type="text" name="title"></td></tr>
+            <tr><td>Precio</td><td><input type="text" name="price"></td></tr>        
+            <tr><td>Foto</td><td><input type="text" name="thumbnail"></td></tr>
+        </table>
+        <br>
+        <input type="submit">
     </form>
+    <br>
     <hr>
+    <br>
     <form method="get" action="/productos">
         <button type="submit">Vista de Productos
     </form>

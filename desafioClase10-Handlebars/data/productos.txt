@@ -28,5 +28,11 @@
     "price": "230",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/ice-cream-cup-sweets-frozen-128.png",
     "id": 5
+  },
+  {
+    "title": "Tacos",
+    "price": "230",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/sausage-burger-bread-breakfast-food-128.png",
+    "id": 6
   }
 ]

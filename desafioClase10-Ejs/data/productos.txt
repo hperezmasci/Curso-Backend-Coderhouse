@@ -28,5 +28,11 @@
     "price": "190",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/french-fries-snacks-fast-food-128.png",
     "id": 5
+  },
+  {
+    "title": "Tacos",
+    "price": "290",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/sausage-burger-bread-breakfast-food-128.png",
+    "id": 6
   }
 ]
