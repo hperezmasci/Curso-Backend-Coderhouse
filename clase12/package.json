@@ -4,6 +4,7 @@
     "socket.io": "^4.2.0"
   },
   "name": "clase12",
+  "type": "module",
   "version": "1.0.0",
   "main": "src/main.js",
   "devDependencies": {},

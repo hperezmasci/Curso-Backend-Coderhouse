@@ -1,14 +1,10 @@
-import express from 'express'
-import { createServer } from "http"
-import { Server } from "socket.io"
+const express = require('express')
+const { Server: HttpServer } = require('http')
+const { Server: IOServer } = require('socket.io')
 
 const app = express()
-
-//const httpServer = new HttpServer(app)  // nuevo server http, reemplazando el de express
-//const io = new IOServer(httpServer)     // IO server sobre el http server
-
-const httpServer = createServer(app)
-const io = new Server(httpServer)
+const httpServer = new HttpServer(app)  // nuevo server http, reemplazando el de express
+const io = new IOServer(httpServer)     // IO server sobre el http server
 
 app.use(express.static('public'))
 
