@@ -33,3 +33,17 @@ html {
   caption {
     padding: 10px;
   }
+
+  #mail {
+    color: blue;
+    font-weight: bold;
+  }
+
+  #ts {
+    color: red;
+  }
+
+  #msg {
+    color: green;
+    font-style: italic;
+  }

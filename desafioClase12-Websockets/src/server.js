@@ -13,34 +13,37 @@ const io = new Server(httpServer)       // IO server sobre el http server
 app.use(express.static('public'))
 app.use('/handlebars', express.static('node_modules/handlebars/dist'))
 
-const cont = new Contenedor("./data/productos.txt");
+const products = new Contenedor("./data/productos.txt");
 
-const messages = []
+const messages = new Contenedor("./data/mensajes.txt")
 
 // manejador del evento "connection" del web socket
 io.on('connection', async (socket) => {
     try {
         console.log('Usuario conectado')
-        // muestra los mensajes preexistentes cuando se conecta el usuario
-        socket.emit('products', await cont.getAll())
+        // muestra los productos preexistentes cuando se conecta el usuario
+        socket.emit('products', await products.getAll())
 
         // muestra los mensajes preexistentes cuando se conecta el usuario
-        socket.emit('messages', messages)
+        socket.emit('messages', await messages.getAll())
 
-        // handler receptor de mensajes "message"
+        // handler receptor de mensajes "product"
         socket.on('product', async (product) => {
             try {
-                await cont.save(product)
-                io.sockets.emit('products', await cont.getAll())
+                await products.save(product)
+                io.sockets.emit('products', await products.getAll())
             }
             catch (err) {throw new Error(`recepcion product: ${err}`)}
         })
 
         // handler receptor de mensajes "message"
-        socket.on('message', (data) => {
-            messages.push({ socketid: socket.id, message: data })
-            // broadcast de los mensajes (incluyendo el nuevo)
-            io.sockets.emit('messages', messages)
+        socket.on('message', async (message) => {
+            try {
+                if (!message.mail) return false
+                await messages.save(message)
+                io.sockets.emit('messages', await messages.getAll())
+            }
+            catch (err) {throw new Error(`recepcion message: ${err}`)}
         })
     }
     catch (err) {throw new Error(`io connection handler: ${err}`)}
