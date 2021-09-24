@@ -1,6 +1,6 @@
 const socket = io.connect();
 
-function render(data) {
+function renderProducts(data) {
     fetch('/getProducts.hbr').then(function (response) {
         return response.text();
     }).then(function (template) {
@@ -13,13 +13,44 @@ function render(data) {
 }
 
 function addProduct(e) {
+    const title = document.getElementById('title')
+    const price = document.getElementById('price')
+    const thumbnail = document.getElementById('thumbnail')
     const producto = {
-        title: document.getElementById('title').value,
-        price: document.getElementById('price').value,
-        thumbnail: document.getElementById('thumbnail').value,
+        title: title.value,
+        price: price.value,
+        thumbnail: thumbnail.value,
     };
     socket.emit('product', producto);
+    title.value = "";
+    price.value = "";
+    thumbnail.value = "";
     return false;
 }
 
-socket.on("products", (data) => {render(data)})
+function renderChat(data) {
+    const html = data.map((elem, index) => {
+        //alert(JSON.stringify(elem, null, 2))
+        return(`<div>
+                <strong>${elem.message.mail}</strong>:
+                <em>${elem.message.text}</em>
+                </div>`)
+    }).join(" ");
+    document.getElementById("messages").innerHTML = html
+}
+
+function addMessage(e) {
+    const mail = document.getElementById('mail')
+    const text = document.getElementById('text')
+    const message = {
+        mail: mail.value,
+        text: text.value
+    };
+    socket.emit('message', message)
+    text.value = ""
+    return false;
+}
+
+socket.on("products", (data) => {renderProducts(data)})
+
+socket.on("messages", (data) => {renderChat(data)})

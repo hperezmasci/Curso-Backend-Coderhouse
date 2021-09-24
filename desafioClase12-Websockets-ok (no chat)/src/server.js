@@ -15,17 +15,15 @@ app.use('/handlebars', express.static('node_modules/handlebars/dist'))
 
 const cont = new Contenedor("./data/productos.txt");
 
-const messages = []
+let products = [];
 
 // manejador del evento "connection" del web socket
 io.on('connection', async (socket) => {
     try {
         console.log('Usuario conectado')
         // muestra los mensajes preexistentes cuando se conecta el usuario
+        products = await cont.getAll();
         socket.emit('products', await cont.getAll())
-
-        // muestra los mensajes preexistentes cuando se conecta el usuario
-        socket.emit('messages', messages)
 
         // handler receptor de mensajes "message"
         socket.on('product', async (product) => {
@@ -35,15 +33,8 @@ io.on('connection', async (socket) => {
             }
             catch (err) {throw new Error(`recepcion product: ${err}`)}
         })
-
-        // handler receptor de mensajes "message"
-        socket.on('message', (data) => {
-            messages.push({ socketid: socket.id, message: data })
-            // broadcast de los mensajes (incluyendo el nuevo)
-            io.sockets.emit('messages', messages)
-        })
     }
-    catch (err) {throw new Error(`io connection handler: ${err}`)}
+    catch (err) {throw new Error(`io product: ${err}`)}
 })
 
 // http server

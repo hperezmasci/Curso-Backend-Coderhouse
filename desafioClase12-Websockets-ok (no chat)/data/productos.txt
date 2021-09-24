@@ -34,29 +34,5 @@
     "price": "230",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/sausage-burger-bread-breakfast-food-128.png",
     "id": 6
-  },
-  {
-    "title": "Tacos",
-    "price": "100",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/sausage-burger-bread-breakfast-food-128.png",
-    "id": 7
-  },
-  {
-    "title": "Sereal",
-    "price": "100",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/sausage-burger-bread-breakfast-food-128.png",
-    "id": 8
-  },
-  {
-    "title": "Cereal",
-    "price": "450",
-    "thumbnail": "link1",
-    "id": 9
-  },
-  {
-    "title": "producto1",
-    "price": "1",
-    "thumbnail": "foto1",
-    "id": 10
   }
 ]
