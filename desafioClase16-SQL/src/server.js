@@ -48,10 +48,13 @@ io.on('connection', async (socket) => {
         })
     }
     catch (err) {throw new Error(`io connection handler: ${err}`)}
+    /*
+    //Aquí no llamo a los close (destroy) porque sino cierro la conexión a las DB ante un connect!!
     finally {
         messages.close()
         products.close()
     }
+    */
 })
 
 // http server
