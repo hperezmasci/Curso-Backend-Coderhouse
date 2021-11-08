@@ -1,0 +1,54 @@
+const express = require('express')
+const Cache = require('node-cache')
+const { json } = require('stream/consumers')
+const {
+    verifyUsername,
+    verifyPassword
+} = require('./middleware')
+
+const app = express()
+// DB tipo key-value
+const cache = new Cache()
+
+app.use(express.json())
+
+app.post('/signup', verifyUsername, verifyPassword, (req, res) => {
+    const previousUser = cache.get(req.body.username)
+
+    console.log({previousUser})
+    
+    if (previousUser) {
+        return res.status(400).json({
+            error: 'El nombre del usuario ya existe'
+        })
+    }
+    
+    const user = {
+        usnername: req.body.username,
+        password: req.body.password
+    }
+
+    cache.set(req.body.username, user)
+
+    return res.json(cache.get(req.body.username))
+})
+
+app.post('/login',  (req, res) => {
+    const user = cache.get(req.body.username)
+    console.log({user})
+
+    if (!user) {
+        return res.status(400).json({
+            error: 'El nombre del usuario no existe'
+        })
+    }
+
+    const userResponse = {
+        username
+    }
+
+const PORT = 8080;
+
+app
+.listen(PORT, ()=>{console.log('Servidor HTTP escuchando en el puerto', server.address().port);})
+.on('error', error=>console.log('Error en servidor', error));

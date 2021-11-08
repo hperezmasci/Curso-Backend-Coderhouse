@@ -1,0 +1,46 @@
+const empresa = {
+    id: "1000",
+    nombre: "Coderhouse",
+    gerente: {
+      id: "2",
+      nombre: "Pedro",
+      apellido: "Mei",
+      DNI: "20442639",
+      direccion: "CABA 457",
+      telefono: "1567811544"
+    },
+    encargado: {
+      id: "3",
+      nombre: "Pablo",
+      apellido: "Blanco",
+      DNI: "20442640",
+      direccion: "CABA 458",
+      telefono: "1567811545"
+    },
+    empleados: [
+      {
+        id: "1",
+        nombre: "Nicole",
+        apellido: "Gonzalez",
+        DNI: "20442638",
+        direccion: "CABA 456",
+        telefono: "1567811543"
+      },
+      {
+        id: "2",
+        nombre: "Pedro",
+        apellido: "Mei",
+        DNI: "20442639",
+        direccion: "CABA 457",
+        telefono: "1567811544"
+      },
+      {
+        id: "3",
+        nombre: "Pablo",
+        apellido: "Blanco",
+        DNI: "20442640",
+        direccion: "CABA 458",
+        telefono: "1567811545"
+      }
+    ]
+}

@@ -1,0 +1,55 @@
+PRIMER EJERCICIO
+
+crea y usa base empresa
+> use empresa
+switched to db empresa
+
+> db.createCollection("clientes")
+{ "ok" : 1 }
+
+> db.empresa.insertOne({"nombre": "Hernán", "edad": 46})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("616838d2389b42996a3d4f33")
+}
+> db.empresa.find()
+{ "_id" : ObjectId("616838d2389b42996a3d4f33"), "nombre" : "Hernán", "edad" : 46 }
+
+> db.empresa.insertMany([{"nombre": "Pepe", "edad": 25},{"nombre":"Juan", "edad": 34},{"nombre":"Pepe","edad":18}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("61683952389b42996a3d4f34"),
+                ObjectId("61683952389b42996a3d4f35"),
+                ObjectId("61683952389b42996a3d4f36")
+        ]
+}
+
+> db.empresa.find()
+{ "_id" : ObjectId("616838d2389b42996a3d4f33"), "nombre" : "Hernán", "edad" : 46 }
+{ "_id" : ObjectId("61683952389b42996a3d4f34"), "nombre" : "Pepe", "edad" : 25 }
+{ "_id" : ObjectId("61683952389b42996a3d4f35"), "nombre" : "Juan", "edad" : 34 }
+{ "_id" : ObjectId("61683952389b42996a3d4f36"), "nombre" : "Pepe", "edad" : 18 }
+
+> db.atriculos.insertMany([{"nombre":"PS5", "precio": 15000, "stock": 3},{"nombre": "PS5 Digital", "precio": 130000, "stock": 5}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("616839ba389b42996a3d4f37"),
+                ObjectId("616839ba389b42996a3d4f38")
+        ]
+}
+
+> db.atriculos.renameCollection("articulos")
+{ "ok" : 1 }
+
+> db.articulos.find()
+{ "_id" : ObjectId("616839ba389b42996a3d4f37"), "nombre" : "PS5", "precio" : 15000, "stock" : 3 }
+{ "_id" : ObjectId("616839ba389b42996a3d4f38"), "nombre" : "PS5 Digital", "precio" : 130000, "stock" : 5 }
+
+> new Date(ObjectId("616839ba389b42996a3d4f37").getTimestamp())
+ISODate("2021-10-14T14:07:54Z")
+
+> ObjectId("616839ba389b42996a3d4f37").getTimestamp()
+ISODate("2021-10-14T14:07:54Z")
+
