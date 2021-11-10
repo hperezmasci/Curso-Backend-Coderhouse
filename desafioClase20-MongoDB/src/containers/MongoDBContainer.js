@@ -3,6 +3,13 @@ import conf from '../config.js'
 
 await mongoose.connect(conf.mongodb.cnxStr, conf.mongodb.options)
 
+function normalizeObj(object) {
+    const obj = JSON.parse(JSON.stringify(object, null, 2))
+    obj["id"] = obj["_id"]
+    delete obj["_id"]
+    return obj
+}
+
 class MongoDBContainer {
     constructor(collection, schema) {
         this.collection = mongoose.model(collection, schema)
@@ -10,7 +17,8 @@ class MongoDBContainer {
 
     async save(object) {
         try {
-           return await this.collection.create(object)
+           const obj = await this.collection.create(object)
+           return normalizeObj(obj)
         }
         catch (err) {
             throw new Error(`save method: ${err}`);  
@@ -20,7 +28,7 @@ class MongoDBContainer {
     async getAll() {
         try {
             const objects = await this.collection.find()
-            return objects
+            return objects.map(normalizeObj)
         }
         catch (err) {
             throw new Error(`getAll method: ${err}`);  
@@ -29,7 +37,8 @@ class MongoDBContainer {
 
     async getById(id) {
         try {
-            return await this.collection.findOne({_id: id})
+            const obj = await this.collection.findOne({_id: id})
+            return normalizeObj(obj)
         }
         catch (err) {
             throw new Error(`getById method: ${err}`);  
@@ -56,7 +65,7 @@ class MongoDBContainer {
 
     async update(obj) {
         try {
-            await this.collection.updateOne({_id: obj._id}, obj)
+            await this.collection.updateOne({_id: obj.id}, obj)
         }
         catch (err) {
             throw new Error(`update method: ${err}`);  

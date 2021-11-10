@@ -155,9 +155,7 @@ async function deleteProductFromCart(req, res) {
         }
 
         const prodId = req.params.id_prod
-        // FIXME: debe proveerse un médoto que abstraiga esto porque me meto en la implementacion
-        // (sólo mongodb pone _id)
-        const idx = cart.products.findIndex(p => p._id == prodId)
+        const idx = cart.products.findIndex(p => p.id == prodId)
         if (idx === -1) {
             return res.status(404).send({error: -4, descripcion: 'producto no encontrado' })
         }
@@ -177,7 +175,7 @@ async function deleteProductFromCart(req, res) {
 
         res.json(cart)
     }
-    catch (err) {throw new Error(`deleteProductToCart: ${err}`)}
+    catch (err) {throw new Error(`deleteProductFromCart: ${err}`)}
 }
 
 export { createCart, deleteCart, getProductsFromCart, addProductToCart, deleteProductFromCart }
