@@ -1,4 +1,4 @@
-import ProductsDaoMongoDB from './daos/ProductsDaoMongoDB.js';
+import ProductsDaoFirebase from './daos/ProductsDaoFirebase.js';
 
 const object1 = {
     timestamp: Date.now(),
@@ -22,7 +22,7 @@ const object3 = {
     stock: 3
 };
 
-const prodCont = new ProductsDaoMongoDB()
+const prodCont = new ProductsDaoFirebase()
 
 async function main() {
     let prod2 = {};
@@ -31,10 +31,14 @@ async function main() {
         await prodCont.save(object1)
         prod2 = await prodCont.save(object2)
         await prodCont.save(object3)
-        prod2 = await prodCont.getById(prod2._id)
-        await prodCont.deleteById(prod2._id)
+        /*
+        prod2 = await prodCont.getById(prod2.id)
+        await prodCont.deleteById(prod2.id)
+        */
         products = await prodCont.getAll()
+        /*
         await prodCont.deleteAll()
+        */
     }
     catch (err) {
         throw new Error(`main: ${err}`)
