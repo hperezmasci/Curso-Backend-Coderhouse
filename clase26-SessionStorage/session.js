@@ -1,11 +1,40 @@
 const express = require('express')
 const session = require('express-session')
+
+/* Persistencia por file store */
 const FileStore = require('session-file-store')(session)
+/* Persistencia por MongoDB */
+const MongoStore = require('connect-mongo')
+
+/* Persistencia REDIS */
+const redis = require('redis')
+const RedisStore = require('connect-redis')(session)
+
+const PERSIST = 'filesystem'
 
 const app = express()
+
+let SessionStore;
+
+switch (PERSIST) {
+    case 'mongodb':
+        SessionStore = MongoStore.create({mongoUrl: 'mongodb://localhost/sessions'})
+        break
+    case 'redis':
+        SessionStore = new RedisStore({
+            host: 'localhost',
+            port: 6379,
+            client: redis.createClient(),
+            ttl: 300
+        })
+        break
+    case 'filesystem':
+    default:
+        SessionStore = new FileStore({path: './sessions', ttl:5, retries: 0}) // TTL está en segundos
+}
+
 app.use(session({
-    /* Persistencia por file store */
-    store: new FileStore({path: './sessions', ttl:5, retries: 0}), // TTL está en segundos
+    store: SessionStore,
 
     secret: 'shhhhhhhhhhhhhhhh',
     resave: false,
@@ -16,20 +45,6 @@ app.use(session({
                         // si este está seteado, hace un override del ttl de la sesión
     }
 }))
-
-/* Si queremos redis, usamos este store dentro del argumento de session en lugar del anterior:
-store: new RedisStore({
-    host: 'localhost',
-    port: 6379,
-    client: client,
-    ttl: 300
-})
-
-Previamente:
-const redis = require('redis')
-const client = redis.createClient()
-const RedisStore = require('connect-redis')(session)
-*/
 
 // DB usuarios
 const users = [
