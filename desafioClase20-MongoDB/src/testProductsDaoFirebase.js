@@ -26,19 +26,18 @@ const prodCont = new ProductsDaoFirebase()
 
 async function main() {
     let prod2 = {};
+    let prod3 = {};
     let products = [];
     try {
         await prodCont.save(object1)
         prod2 = await prodCont.save(object2)
-        await prodCont.save(object3)
-        /*
+        prod3 = await prodCont.save(object3)
         prod2 = await prodCont.getById(prod2.id)
         await prodCont.deleteById(prod2.id)
-        */
+        prod3.price = 100000
+        await prodCont.update(prod3)
         products = await prodCont.getAll()
-        /*
         await prodCont.deleteAll()
-        */
     }
     catch (err) {
         throw new Error(`main: ${err}`)
@@ -47,6 +46,7 @@ async function main() {
         prodCont.close()
     }
     console.log(`products #2: ${JSON.stringify(prod2, null, 2)}`)
+    console.log(`products #3: ${JSON.stringify(prod3, null, 2)}`)
     console.log(`products without #2: ${JSON.stringify(products, null, 2)}`)
 }
 

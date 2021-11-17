@@ -10,9 +10,9 @@ class FirebaseContainer {
 
     async save(object) {
         try {
-            // FIXME: cómo obtengo el ID del objeto que agrego?
             // lo que devuelve el add no es el objeto agregado
-           await this.query.add(object)
+           const objRef = await this.query.add(object)
+           object.id = objRef.id
            return object
         }
         catch (err) {
@@ -35,6 +35,50 @@ class FirebaseContainer {
         }
         catch (err) {
             throw new Error(`getAll method: ${err}`);  
+        }
+    }
+
+    async getById(id) {
+        try {
+            const doc = this.query.doc(`${id}`)
+            const item = await doc.get()
+            const obj = item.data()
+            obj.id = item.id
+            return obj
+        }
+        catch (err) {
+            throw new Error(`getById method: ${err}`);  
+        }
+    }
+
+    async deleteById(id) {
+        try {
+            await this.query.doc(`${id}`).delete()
+        }
+        catch (err) {
+            throw new Error(`deleteById method: ${err}`);  
+        }
+    }
+
+    async deleteAll() {
+        try {
+            const objects = await this.getAll();
+            for (let i=0; i<objects.length; i++)
+                await this.deleteById(objects[i].id)
+
+        }
+        catch (err) {
+            throw new Error(`deleteAll method: ${err}`);  
+        }
+    }
+
+    async update(obj) {
+        try {
+            const doc = this.query.doc(`${obj.id}`)
+            const item = await doc.update(obj)
+        }
+        catch (err) {
+            throw new Error(`update method: ${err}`);  
         }
     }
 
