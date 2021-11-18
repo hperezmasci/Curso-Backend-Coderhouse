@@ -35,20 +35,6 @@ async function createProduct(req, res) {
     catch (err) {throw new Error(`createProduct: ${err}`)}
 }
 
-/* reemplazo esto que proviene del container de filesystem por el update posta
-   en el caso del filesystem le puedo sumar el update resolviendo como aquí
- 
-async function updateProduct(req, res) {
-    try {
-        await ProductsDao.deleteById(req.params.id)
-        const prod = req.body
-        prod.timestamp = Date.now()
-        await ProductsDao.save(prod)
-        res.json(prod)
-    }
-    catch (err) {throw new Error(`updateProduct: ${err}`)}
-}
-*/
 async function updateProduct(req, res) {
     try {
         const prod = req.body
@@ -79,7 +65,6 @@ export { getProducts, getProduct, createProduct, updateProduct, deleteProduct }
 async function createCart(req, res) {
     try {
         const cart = req.body
-        // XXX TODO: convendría chequear estructura del carrito
         cart.timestamp = Date.now();
         cart.products = [];
         res.json(await CartsDao.save(cart))
@@ -113,14 +98,6 @@ async function addProductToCart(req, res) {
 
         await CartsDao.update(cart)
 
-        /*
-         * FIXME: Hay que soportar este método en files
-         * se venía haciendo con delete y save, pero no sirve para mongodb
-         * en files internamente será un delete y un save así:
-         * prod.stock = stock
-         * await ProductsDao.deleteById(prod.id)
-         * await ProductsDao.save(prod)
-         */
         prod.stock = stock
         await ProductsDao.update(prod)
 
