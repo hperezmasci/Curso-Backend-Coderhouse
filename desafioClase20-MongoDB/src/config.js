@@ -1,4 +1,7 @@
 const config = {
+    'filesystem': {
+        path: './DB'
+    },
     'mongodb': {
         cnxStr: 'mongodb://localhost/ecommerce',
         options: {
@@ -18,22 +21,6 @@ const config = {
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jd8u5%40cursobech.iam.gserviceaccount.com"
-    },
-    'mariadb': {
-        client: 'mysql',
-        connection: {
-            host: '127.0.0.1',
-            user: 'root',
-            //password: 'password',
-            database: 'test'
-        }
-    },
-    'sqlite': {
-        client: 'sqlite3',
-        connection: {
-          filename: "./DB/ecommerce.sqlite"
-        },
-        useNullAsDefault: true
     }
 }
 

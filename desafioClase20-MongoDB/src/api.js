@@ -26,26 +26,35 @@ async function getProduct(req, res) {
     catch (err) {throw new Error(`getProduct: ${err}`)}
 }
 
-// XXX TODO: conviene devolver el producto creado con el ID para poder luego accederlo
-// especialmente util con postman
 async function createProduct(req, res) {
     try {
         const prod = req.body
         prod.timestamp = Date.now()
-        // XXX TODO: convendría chequear estructura del producto
-        ProductsDao.save(prod)
-        res.json(prod)
+        res.json(await ProductsDao.save(prod))
     }
     catch (err) {throw new Error(`createProduct: ${err}`)}
 }
 
+/* reemplazo esto que proviene del container de filesystem por el update posta
+   en el caso del filesystem le puedo sumar el update resolviendo como aquí
+ 
 async function updateProduct(req, res) {
     try {
         await ProductsDao.deleteById(req.params.id)
         const prod = req.body
         prod.timestamp = Date.now()
-        // XXX TODO: convendría chequear estructura del producto
         await ProductsDao.save(prod)
+        res.json(prod)
+    }
+    catch (err) {throw new Error(`updateProduct: ${err}`)}
+}
+*/
+async function updateProduct(req, res) {
+    try {
+        const prod = req.body
+        prod.id = req.params.id
+        prod.timestamp = Date.now()
+        await ProductsDao.update(prod)
         res.json(prod)
     }
     catch (err) {throw new Error(`updateProduct: ${err}`)}
@@ -73,8 +82,7 @@ async function createCart(req, res) {
         // XXX TODO: convendría chequear estructura del carrito
         cart.timestamp = Date.now();
         cart.products = [];
-        CartsDao.save(cart)
-        res.json(req.body)
+        res.json(await CartsDao.save(cart))
     }
     catch (err) {throw new Error(`createCart: ${err}`)}
 }
@@ -82,12 +90,12 @@ async function createCart(req, res) {
 async function addProductToCart(req, res) {
     try {
         const cart = await CartsDao.getById(req.params.id)
-        if (cart === null) {
+        if (cart === null || cart === undefined) {
                 return res.status(404).send({error: -3, descripcion: 'carrito no encontrado' })
         }
 
         const prod = await ProductsDao.getById(req.body.id)
-        if (prod === null) {
+        if (prod === null || prod === undefined) {
             return res.status(404).send({error: -4, descripcion: 'producto no encontrado' })
         }
 
@@ -103,13 +111,6 @@ async function addProductToCart(req, res) {
         delete prod.stock
         cart.products.push(prod)
 
-        /*
-         * FIXME: Hay que soportar este método en files
-         * se venía haciendo con delete y save, pero no sirve para mongodb
-         * en files internamente será un delete y un save así:
-         * await CartsDao.deleteById(cart.id)
-         * await CartsDao.save(cart)
-         */
         await CartsDao.update(cart)
 
         /*

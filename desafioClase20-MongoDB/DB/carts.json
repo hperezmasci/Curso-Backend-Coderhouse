@@ -1,0 +1,36 @@
+[
+  {
+    "timestamp": 1637201909195,
+    "products": [
+      {
+        "title": "ps5",
+        "thumbnail": "productos/ps5.jpg",
+        "price": 170000,
+        "timestamp": 1637201689850,
+        "id": 2
+      },
+      {
+        "title": "ps5 digital edition",
+        "thumbnail": "productos/ps5dig.jpg",
+        "price": 159999,
+        "timestamp": 1637201754499,
+        "id": 5
+      },
+      {
+        "title": "ps4pro",
+        "thumbnail": "productos/ps4pro.jpg",
+        "price": 90000,
+        "timestamp": 1637201664922,
+        "id": 6
+      },
+      {
+        "title": "ps5",
+        "thumbnail": "productos/ps5.jpg",
+        "price": 170000,
+        "timestamp": 1637201689850,
+        "id": 7
+      }
+    ],
+    "id": 1
+  }
+]

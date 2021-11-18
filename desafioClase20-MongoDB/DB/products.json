@@ -1,0 +1,26 @@
+[
+  {
+    "title": "ps5 digital edition",
+    "thumbnail": "productos/ps5dig.jpg",
+    "price": 159999,
+    "timestamp": 1637201754499,
+    "stock": 7,
+    "id": 8
+  },
+  {
+    "title": "ps4pro",
+    "thumbnail": "productos/ps4pro.jpg",
+    "price": 90000,
+    "timestamp": 1637201664922,
+    "stock": 4,
+    "id": 9
+  },
+  {
+    "title": "ps5",
+    "thumbnail": "productos/ps5.jpg",
+    "price": 170000,
+    "timestamp": 1637201689850,
+    "stock": 2,
+    "id": 10
+  }
+]
