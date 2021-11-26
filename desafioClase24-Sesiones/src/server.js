@@ -24,14 +24,21 @@ app.engine('handlebars', exphbs())
 app.set('view engine', 'handlebars')
 app.set('views', './views')
 
+import MongoStore from 'connect-mongo'
+import mongoDBConf from '../options/mongoDB.js'
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+
 app.use(session({
-    //store: XXX TODO: Mongo Atlas,
+    store: MongoStore.create({
+        mongoUrl: mongoDBConf.cnxStr,
+        mongoOptions: advancedOptions
+    }),
     secret: 'shhhhhhhhhhhhhhhh',
     resave: false,
     saveUninitialized: false,
     rolling: true, // para refrescar el ttl cada vez que se interactúa con la sesión
     cookie: {
-        maxAge: 60000   // msec. Esto puede obviarse y la cookie toma la duración de la sesión
+        maxAge: 10000   // msec. Esto puede obviarse y la cookie toma la duración de la sesión
                         // si este está seteado, hace un override del ttl de la sesión
     }
 }))
