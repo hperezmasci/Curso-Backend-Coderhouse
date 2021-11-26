@@ -2,7 +2,6 @@
   "name": "desafioclase10-handlebars",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -13,5 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
