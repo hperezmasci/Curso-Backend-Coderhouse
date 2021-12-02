@@ -2,3 +2,4 @@
 DB/ecommerce.sqlite
 */sessions
 *.env
+nginx
