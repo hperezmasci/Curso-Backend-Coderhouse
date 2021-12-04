@@ -2,7 +2,7 @@ import { Router } from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-import { passport, isAuthenticated } from './authMiddleware.js'
+import passport from './authMiddleware.js'
 import conf from './config.js'
 
 // XXX FIXME: se usa??
@@ -37,24 +37,30 @@ authRouter.post(
         'register',
         {
             successRedirect: '/',
-            failureRedirect: '/register.html',
-            failureFlash: true
+            failureRedirect: '/registererror.html',
+            failureFlash: false
+        }
+    )
+)
+
+authRouter.post(
+    '/login',
+    passport.authenticate(
+        'login',
+        {
+            successRedirect: '/',
+            failureRedirect: '/loginerror.html',
+            failureFlash: false
         }
     )
 )
 
 authRouter.get('/', isAuthenticated, (req, res) => {
-    res.render('index.handlebars', {username: req.session.username})
-})
-
-authRouter.post('/login', (req, res) => {
-    // XXX TODO: fix login (este es el que no autentica)
-    req.session.username = req.body.username
-    res.redirect('/')
+    res.render('index.handlebars', {username: passport.username})
 })
 
 authRouter.post('/logout', isAuthenticated, (req, res) => {
-    const username = req.session.username
+    const username = passport.username
     req.session.destroy(err => {
         if (err) {
             return res.redirect('/')
@@ -62,5 +68,14 @@ authRouter.post('/logout', isAuthenticated, (req, res) => {
         res.render('logout.handlebars', {username})
     })
 })
+   
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        next()
+    }
+    else {
+        res.redirect('/login.html')
+    }
+}
 
 export default authRouter
