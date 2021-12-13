@@ -1,0 +1,15 @@
+    <table>
+        <tr><th colspan=3><h1>Vista de Productos</h1></th></tr>
+        <tr><th>Nombre</th><th>Precio</th><th>Foto</th></tr>
+        {{#if listExists}}
+            {{#each products}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{price}}</td>
+            <td><img src="{{thumbnail}}"></img></td>
+        </tr>
+            {{/each}}
+        {{else}}
+        <tr><td colspan=3>No hay productos</td>
+        {{/if}}
+    </table>

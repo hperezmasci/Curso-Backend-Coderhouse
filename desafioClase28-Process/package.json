@@ -1,0 +1,27 @@
+{
+  "name": "desafioclase24-sesiones",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4",
+    "express-session": "^1.17.2",
+    "knex": "^0.95.11",
+    "mongoose": "^6.0.13",
+    "mysql": "^2.18.1",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.2.0",
+    "sqlite3": "^5.0.2"
+  },
+  "description": ""
+}

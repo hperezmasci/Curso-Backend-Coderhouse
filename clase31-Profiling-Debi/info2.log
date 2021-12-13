@@ -1,0 +1,8 @@
+[2021-12-07T11:30:23.884] [INFO] archivo2 - Cheese is Comté.
+[2021-12-07T11:30:23.884] [WARN] archivo2 - Cheese is quite smelly.
+[2021-12-07T11:30:23.885] [ERROR] archivo2 - Cheese is too ripe!
+[2021-12-07T11:30:23.885] [FATAL] archivo2 - Cheese was breeding ground for listeria.
+[2021-12-07T11:32:55.753] [INFO] archivo2 - Cheese is Comté.
+[2021-12-07T11:32:55.754] [WARN] archivo2 - Cheese is quite smelly.
+[2021-12-07T11:32:55.754] [ERROR] archivo2 - Cheese is too ripe!
+[2021-12-07T11:32:55.754] [FATAL] archivo2 - Cheese was breeding ground for listeria.
