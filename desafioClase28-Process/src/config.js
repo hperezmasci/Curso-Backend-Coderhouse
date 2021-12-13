@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 const atlasCreds = {
     user: process.env.ATLAS_USER,
     password: process.env.ATLAS_PASSWORD
