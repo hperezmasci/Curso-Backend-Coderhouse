@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<head>
+    <title>Server Info</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="/handlebars/handlebars.min.js"></script>
+</head>
+<body>
+        <h1>Server Info</h1>
+        {{#each info}}
+            <p>{{@key}}: {{this}}</p>
+        {{/each}}
+</body>

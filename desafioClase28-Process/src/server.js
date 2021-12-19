@@ -1,11 +1,18 @@
-import express from 'express';
-import exphbs from 'express-handlebars';
-import { createServer } from "http";
-import { Server } from "socket.io";
+import express from 'express'
+import exphbs from 'express-handlebars'
+import { createServer } from "http"
+import { Server } from "socket.io"
+import parseArgs from "minimist"
 
 import authRouter from './authRouter.js'
+import infoRouter from './infoRouter.js'
+import randomRouter from './randomRouter.js'
+
 import ProductsDaoMongoDB from './daos/ProductsDaoMongoDB.js'
 import MessagesDaoMongoDB from './daos/MessagesDaoMongoDB.js'
+
+// esquivamos los parámetros 0 y 1 porque son el comando node y el archivo fuente
+const args = parseArgs(process.argv.slice(2), {default: {port: 8080}})
 
 // express initialization
 const app = express()
@@ -22,6 +29,12 @@ app.set('views', './views')
 
 // Auth Router
 app.use(authRouter)
+
+// Info Router
+app.use('/info', infoRouter)
+
+// Random Router
+app.use('/api/random', randomRouter)
 
 // Containers for Products and Messages
 const products = new ProductsDaoMongoDB();
@@ -72,9 +85,8 @@ io.on('connection', async (socket) => {
 })
 
 // http server
-const PORT = 8080
-const connectedServer = httpServer.listen(PORT, () => {
-    console.log('Servidor HTTP con Websockets escuchando en el puerto', PORT)
+const connectedServer = httpServer.listen(args.port, () => {
+    console.log('Servidor HTTP con Websockets escuchando en el puerto', args.port)
 })
 connectedServer.on('error', error=>console.log('Error en servidor', error))
 
