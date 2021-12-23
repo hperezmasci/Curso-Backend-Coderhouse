@@ -1,0 +1,17 @@
+{
+  "name": "clase35-mensajes",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ethereal.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "nodemailer": "^6.7.2",
+    "twilio": "^3.72.0"
+  }
+}
