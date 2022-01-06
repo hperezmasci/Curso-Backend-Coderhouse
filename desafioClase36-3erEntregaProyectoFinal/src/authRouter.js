@@ -1,9 +1,21 @@
 import { Router } from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import multer from 'multer'
 
 import passport from './authMiddleware.js'
 import conf from './config.js'
+
+const storage = multer.diskStorage({
+    destination: (req,file,cb)=>{
+        cb(null,'../uploads')
+    },
+    filename: (req,file,cb)=>{
+        cb(null,file.fieldname + '-' + Date.now())
+    }
+});
+
+const upload = multer({storage});
 
 // XXX FIXME: se usa??
 //import flash from 'connect-flash'
@@ -33,6 +45,7 @@ authRouter.use(passport.session())
 
 authRouter.post(
     '/register',
+    upload.single('avatar'),
     passport.authenticate(
         'register',
         {

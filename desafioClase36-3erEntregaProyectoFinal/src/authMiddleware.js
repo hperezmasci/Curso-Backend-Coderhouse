@@ -1,6 +1,6 @@
 import passport from 'passport'
 import passportLocal from 'passport-local'
-import bCrypt from 'bcrypt';
+import bCrypt from 'bcrypt'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 
 import UsersDaoMongoDB from './daos/UsersDaoMongoDB.js'
@@ -49,6 +49,12 @@ passport.use(
                 console.log('nro invalido')
                 return done(null, false, {message: 'Numero de telefono invalido'})
             }
+            /*
+            if (!req.file) {
+                console.log('no envía archivo')
+                return done(null, false, {message: 'Falta cargar archivo a subir'})
+            }
+            */
             return Users.save({
                 username:   username,
                 password:   createHash(password),
