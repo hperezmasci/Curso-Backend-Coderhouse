@@ -4,7 +4,7 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-     <form action="/register" method="post">
+     <form action="/register" enctype="multipart/form-data" method="post">
         <table>
             <th colspan=2>Registro de Usuario</th>
             <tr><td><input type="email" id="username" name="username" placeholder="Usuario (email)"></td></tr>
@@ -13,6 +13,7 @@
             <tr><td><input type="text" id="address" name="address" placeholder="Dirección"></td></tr>
             <tr><td><input type="number" id="age" name="age" min="1" placeholder="Edad"></td></tr>
             <tr><td><input type="text" id="phone" name="phone" placeholder="Teléfono con prefijo internacional (+541234567890)"></td></tr>
+            <tr><td><input type="file" id="file" name="file"></td></tr>
         </table>
         <br>
         <input type="submit" value="Register">
