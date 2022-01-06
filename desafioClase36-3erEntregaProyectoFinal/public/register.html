@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <title>User Sign On</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+     <form action="/register" method="post">
+        <table>
+            <th colspan=2>Registro de Usuario</th>
+            <tr><td><input type="email" id="username" name="username" placeholder="Usuario (email)"></td></tr>
+            <tr><td><input type="password" id="password" name="password" placeholder="Contraseña"></td></tr>
+            <tr><td><input type="text" id="name" name="name" placeholder="Nombre"></td></tr>
+            <tr><td><input type="text" id="address" name="address" placeholder="Dirección"></td></tr>
+            <tr><td><input type="number" id="age" name="age" min="1" placeholder="Edad"></td></tr>
+            <tr><td><input type="text" id="phone" name="phone" placeholder="Teléfono con prefijo internacional (+541234567890)"></td></tr>
+        </table>
+        <br>
+        <input type="submit" value="Register">
+    </form>
+    <br>
+    <button onclick="location.href = '/login.html';">Login</button>
+</body>

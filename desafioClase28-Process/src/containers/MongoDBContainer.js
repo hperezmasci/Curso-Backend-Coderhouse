@@ -4,6 +4,7 @@ import conf from '../config.js'
 await mongoose.connect(conf.atlas.cnxStr, conf.atlas.options)
 
 function normalizeObj(object) {
+    if (object === null) return null
     const obj = JSON.parse(JSON.stringify(object, null, 2))
     obj["id"] = obj["_id"]
     delete obj["_id"]
