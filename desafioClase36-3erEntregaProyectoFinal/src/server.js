@@ -19,11 +19,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 // client-side handlebars
-app.use('/handlebars', express.static('node_modules/handlebars/dist'))
+app.use('/hbs', express.static('node_modules/handlebars/dist'))
 
 // server-side handlebars
-app.engine('handlebars',exphbs.engine({extname: '.hbs', defaultLayout: "main"}))
-app.set('view engine', 'handlebars')
+app.engine('hbs',exphbs.engine({extname: '.hbs', defaultLayout: "main"}))
+app.set('view engine', 'hbs')
 app.set('views', './views')
 
 

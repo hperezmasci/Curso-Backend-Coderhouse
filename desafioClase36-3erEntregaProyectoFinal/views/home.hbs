@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <title>Selección Productos</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="scripts.js"></script>
+    <script src="/hbs/handlebars.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>
+            <form action="/logout" method="post">
+                <tr><td>Bienvenido {{username}}</td>
+                <td><button type="submit">Desloguearse</button></td></tr>
+            </form>
+        </h1>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <!--
+    <form onsubmit="return addProduct(this)">
+        <table>
+            <th colspan=2>Ingrese Producto</th>
+            <tr><td>Nombre</td><td><input type="text" id="title" placeholder="Producto"></td></tr>
+            <tr><td>Precio</td><td><input type="text" id="price" placeholder="Precio"></td></tr>        
+            <tr><td>Foto URL</td><td><input type="text" id="thumbnail" placeholder="link a imagen"></td></tr>
+        </table>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+    -->
+    <br>
+    <hr>
+    <br>
+    <h1>Productos</h1>
+    <!-- aquí va la tabla hecha en handlebars lado cliente-->
+    <div id="products"></div>
+    <br>
+</body>

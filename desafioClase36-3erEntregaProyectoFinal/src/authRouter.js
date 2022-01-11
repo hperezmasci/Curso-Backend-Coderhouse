@@ -78,18 +78,17 @@ function isAuthenticated(req, res, next) {
 }
 
 authRouter.get('/', isAuthenticated, (req, res) => {
-    //res.render('index.handlebars', {username: passport.username})
-    res.send(`Bienvenido ${passport.username}`)
+    res.render('home.hbs', {username: passport.username})
+    //res.send(`Bienvenido ${passport.username}`)
 })
 
-// no editado para desafío clase 36
 authRouter.post('/logout', isAuthenticated, (req, res) => {
     const username = passport.username
     req.session.destroy(err => {
         if (err) {
             return res.redirect('/')
         }
-        res.render('logout.handlebars', {username})
+        res.render('logout.hbs', {username})
     })
 })
 
