@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <title>Carrito de Compras</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <h1>
+            <form action="/logout" method="post">
+                <tr><td>Bienvenido {{username}}</td>
+                <td><button type="submit">Desloguearse</button></td></tr>
+            </form>
+        </h1>
+    </div>
+    <br>
+    <hr>
+    <table>
+    <tr>
+        <td><a href="/">Home</a></td>
+        <td><a href="/products">Productos</a></td>
+        <td><a href="/profile">Perfil</a></td>
+    </tr>
+    </table>
+    <br>
+    <form action="/cart" method="post">
+        <table>
+            <tr><th colspan=4><h1>Carrito de Compras</h1></th></tr>
+            {{#if cart.products}}
+                {{#each cart.products}}
+            <tr>
+                <td><img src="{{thumbnail}}"></img></td>
+                <td>{{title}}</td>
+                <td>${{price}}</td>
+                <td><button type="submit" name="removeItem" value="{{id}}">quitar</button></td></tr>
+            </tr>
+                {{/each}}
+            <tr></tr>
+            <hr>
+            <tr><td colspan=4><button type="submit" name="action" value="purchase">Confirmar compra</button></td></tr>
+            {{else}}
+            <tr><td colspan=4>No hay productos</td>
+            {{/if}}
+        </table>
+    </form>
+</body>

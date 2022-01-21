@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "express": "^4.17.2",
+    "jest": "^27.4.7",
+    "mongoose": "^6.1.6",
+    "winston": "^3.4.0"
+  },
+  "name": "clase39-arquitecturadelservidor",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

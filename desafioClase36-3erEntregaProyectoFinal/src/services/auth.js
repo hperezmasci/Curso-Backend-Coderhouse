@@ -3,7 +3,7 @@ import passportLocal from 'passport-local'
 import bCrypt from 'bcrypt'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 
-import UsersDaoMongoDB from './daos/UsersDaoMongoDB.js'
+import UsersDaoMongoDB from '../daos/UsersMongoDB.js'
 
 function createHash(password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)

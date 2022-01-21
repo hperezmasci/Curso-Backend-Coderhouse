@@ -1,4 +1,4 @@
-import MongoDBContainer from '../containers/MongoDBContainer.js'
+import MongoDBContainer from '../containers/MongoDB.js'
 
 const schema = {
     username:   { type: String, required: true },

@@ -3,6 +3,7 @@ import conf from '../config.js'
 
 await mongoose.connect(conf.atlas.cnxStr, conf.atlas.options)
 
+// XXX FIXME: desde la teoría, esta normalización debería hacerla el DAO y no el container (clase 40 Mariano)
 function normalizeObj(object) {
     if (!object) return null
     const obj = JSON.parse(JSON.stringify(object, null, 2))

@@ -3,8 +3,10 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import multer from 'multer'
 
-import passport from './authMiddleware.js'
-import conf from './config.js'
+import passport from '../services/auth.js'
+import conf from '../config.js'
+import productsController from '../controllers/products.js'
+import cartController from '../controllers/cart.js'
 
 const storage = multer.diskStorage({
     destination: (req,file,cb)=>{
@@ -20,10 +22,10 @@ const upload = multer({storage});
 // XXX FIXME: se usa??
 //import flash from 'connect-flash'
 
-const authRouter = new Router()
+const webRouter = new Router()
 
 // sessions
-authRouter.use(session({
+webRouter.use(session({
     store: MongoStore.create({
         mongoUrl: conf.atlas.cnxStr,
         mongoOptions: conf.atlas.options
@@ -33,17 +35,17 @@ authRouter.use(session({
     saveUninitialized: false,
     rolling: true, // para refrescar el ttl cada vez que se interactúa con la sesión
     cookie: {
-        maxAge: 10000   // msec. Esto puede obviarse y la cookie toma la duración de la sesión
-                        // si este está seteado, hace un override del ttl de la sesión
+        maxAge: 3600000   // msec. Esto puede obviarse y la cookie toma la duración de la sesión
+                          // si este está seteado, hace un override del ttl de la sesión
     }
 }))
 
-authRouter.use(passport.initialize())
-authRouter.use(passport.session())
+webRouter.use(passport.initialize())
+webRouter.use(passport.session())
 // XXX FIXE: se usa?
-//authRouter.use(flash())
+//webRouter.use(flash())
 
-authRouter.post(
+webRouter.post(
     '/register',
     upload.single('avatar'),
     passport.authenticate(
@@ -56,7 +58,7 @@ authRouter.post(
     )
 )
 
-authRouter.post(
+webRouter.post(
     '/login',
     passport.authenticate(
         'login',
@@ -69,7 +71,10 @@ authRouter.post(
 )
 
 function isAuthenticated(req, res, next) {
+    // descomentar para entrar sin login
+    //return next()
     if (req.isAuthenticated()) {
+        req.username = passport.username
         next()
     }
     else {
@@ -77,12 +82,7 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-authRouter.get('/', isAuthenticated, (req, res) => {
-    res.render('home.hbs', {username: passport.username})
-    //res.send(`Bienvenido ${passport.username}`)
-})
-
-authRouter.post('/logout', isAuthenticated, (req, res) => {
+webRouter.post('/logout', isAuthenticated, (req, res) => {
     const username = passport.username
     req.session.destroy(err => {
         if (err) {
@@ -92,4 +92,13 @@ authRouter.post('/logout', isAuthenticated, (req, res) => {
     })
 })
 
-export default authRouter
+webRouter.get('/', isAuthenticated, (req, res) => {
+    res.render('home.hbs', {username: passport.username})
+})
+
+webRouter.get('/products', isAuthenticated, productsController.getProducts)
+webRouter.post('/product', isAuthenticated, cartController.addProduct)
+webRouter.get('/cart', isAuthenticated, cartController.getCart)
+webRouter.post('/cart', isAuthenticated, cartController.processCart)
+
+export default webRouter

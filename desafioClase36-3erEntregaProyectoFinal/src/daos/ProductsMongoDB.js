@@ -1,4 +1,4 @@
-import MongoDBContainer from '../containers/MongoDBContainer.js'
+import MongoDBContainer from '../containers/MongoDB.js'
 
 const schema = {
     title: { type: String, required: true },
@@ -6,9 +6,16 @@ const schema = {
     thumbnail: { type: String, required: true}
 }
 
+let instance = null
+
 class ProductsDaoMongoDB extends MongoDBContainer {
     constructor() {
         super('products', schema)
+    }
+
+    static getInstance() {
+        if (!instance) instance = new ProductsDaoMongoDB()
+        return instance
     }
 }
 

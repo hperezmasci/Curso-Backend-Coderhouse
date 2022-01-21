@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>Selección Productos</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <h1>
+            <form action="/logout" method="post">
+                <tr><td>Bienvenido {{username}}</td>
+                <td><button type="submit">Desloguearse</button></td></tr>
+            </form>
+        </h1>
+    </div>
+    <br>
+    <hr>
+    <table>
+    <tr>
+        <td><a href="/">Home</a></td>
+        <td><a href="/cart">Carrito</a></td>
+        <td><a href="/profile">Perfil</a></td>
+    </tr>
+    </table>
+    <br>
+    <form action="/product" method="post">
+        <table>
+            <tr><th colspan=3><h1>Vista de Productos</h1></th></tr>
+            <tr><th>Nombre</th><th>Precio</th><th>Foto</th></tr>
+            {{#if products.length}}
+                {{#each products}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{price}}</td>
+                <td><img src="{{thumbnail}}"></img></td>
+                <td><button type="submit" name="id" value="{{id}}">agregar</button></td></tr>
+            </tr>
+                {{/each}}
+            {{else}}
+            <tr><td colspan=3>No hay productos</td>
+            {{/if}}
+        </table>
+    </form>
+</body>
