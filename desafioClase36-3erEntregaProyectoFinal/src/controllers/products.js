@@ -6,7 +6,7 @@ async function getProducts(req, res) {
         const products = await productsService.getProducts()
         res.render('products', {username, products})
     }
-    catch (err) {throw new Error(`getProducts: ${err}`)}
+    catch (err) {logger.error(`cpntrollers.products.getProducts: ${err}`)}
 }
 
 export default {

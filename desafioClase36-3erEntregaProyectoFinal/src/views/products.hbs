@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <head>
-    <title>Selección Productos</title>
+    <title>e-Commerce</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div>
         <h1>
             <form action="/logout" method="post">
-                <tr><td>Bienvenido {{username}}</td>
+                <tr><td>{{username}}</td>
                 <td><button type="submit">Desloguearse</button></td></tr>
             </form>
         </h1>
@@ -16,11 +16,13 @@
     <hr>
     <table>
     <tr>
-        <td><a href="/">Home</a></td>
+        <td>Productos</td>
         <td><a href="/cart">Carrito</a></td>
         <td><a href="/profile">Perfil</a></td>
     </tr>
     </table>
+    <br>
+    <hr>
     <br>
     <form action="/product" method="post">
         <table>

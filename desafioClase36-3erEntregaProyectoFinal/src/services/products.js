@@ -7,7 +7,7 @@ async function getProducts() {
         const products = await Products.getAll()
         return products
     }
-    catch (err) {throw new Error(`getProducts: ${err}`)}
+    catch (err) {throw new Error(`services.products.getProducts: ${err}`)}
 }
 
 export default {

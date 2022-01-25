@@ -1,48 +1,61 @@
+import logger from '../logger.js'
 import cartService from '../services/cart.js'
 
 async function addProduct(req, res) {
     try {
-        console.log(req.username, req.body)
         const username = req.username
         const productId = req.body.id
-        const cart = await cartService.addProduct(username, productId)
-        res.render('cart', {username, cart})
+        let cart = await cartService.getCart(username)
+            cart = await cartService.addProduct(cart, productId)
+        const products = cart.products
+        res.render('cart', {username, products})
     }
-    catch (err) {throw new Error(`addProduct: ${err}`)}
+    catch (err) {logger.error(`controllers.cart.addProduct: ${err}`)}
 }
 
 async function getCart(req, res) {
     try {
         const username = req.username
         const cart = await cartService.getCart(username)
-        res.render('cart', {username, cart})
+        const products = cart.products
+        res.render('cart', {username, products})
     }
-    catch (err) {throw new Error(`getCart: ${err}`)}
+    catch (err) {logger.Error(`controllers.cart.getCart: ${err}`)}
 }
 
 async function processCart(req, res) {
     try {
         const username = req.username
-        const cart = await cartService.getCart(username)
+        const productId = req.body.removeItem
+        let cart = await cartService.getCart(username)
+        let products = []
         
-        if (req.body.removeItem) {
-            // llamar a servicio para quitar item y
-            // renderear otra vez el carrito una vez que quité el item
-            console.log(`XXX remover item ${req.body.removeItem}`)
-            res.render('cart', {username, cart})
+        if (productId) {
+            cart = await cartService.removeProduct(cart, productId)
+            cart = await cartService.getCart(username)
+            products = cart.products
+            res.render('cart', {username, products})
             return
         }
         else if (req.body.action == 'purchase') {
-            // llamar a servicio para compra, que además vacía el carrito
-            // ver qué renderear
-            console.log(`XXX purchase!`)
-            res.render('cart', {username, cart})
+            products = cart.products
+            await cartService.purchase(cart, username)
+            res.render('purchase', {username, products})
             return
         }
-        // no debería llegar aca
-        res.render('cart', {username, cart})
+        else if (req.body.action == 'emptyCart') {
+            await cartService.emptyCart(cart, username)
+            cart = await cartService.getCart(username)
+            products = cart.products
+            res.render('cart', {username, products})
+            return
+        }
+        console.error(`controllers.cart.processCart: unknown action ${req.body.action}`)
+        products = []
+        res.render('cart', {username, products})
+        return
     }
-    catch (err) {throw new Error(`processCart: ${err}`)}
+    catch (err) {logger.error(`controllers.cart.processCart: ${err}`)}
 }
 
 

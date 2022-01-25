@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <title>e-Commerce</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <h1>
+            <form action="/logout" method="post">
+                <tr><td>{{user.username}}</td>
+                <td><button type="submit">Desloguearse</button></td></tr>
+            </form>
+        </h1>
+    </div>
+    <br>
+    <hr>
+    <table>
+    <tr>
+        <td><a href="/products">Productos</a></td>
+        <td><a href="/cart">Carrito</a></td>
+        <td>Perfil</td>
+    </tr>
+    </table>
+    <br>
+    <hr>
+    <br>
+    <table>
+        <tr><th colspan=2><h1>Tus datos</h1></th></tr>
+        <tr><td>Nombre</td><td>{{user.name}}</td></tr>
+        <tr><td>Mail</td><td>{{user.username}}</td></tr>
+        <tr><td>Dirección</td><td>{{user.address}}</td></tr>
+        <tr><td>Edad</td><td>{{user.age}}</td></tr>
+        <tr><td>Teléfono</td><td>{{user.phone}}</td></tr>
+        <tr><td>Avatar</td><td><img src="{{user.thumbnail}}"></td></tr>
+    </table>
+</body>

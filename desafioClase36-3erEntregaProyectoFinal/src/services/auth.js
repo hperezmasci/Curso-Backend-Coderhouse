@@ -3,7 +3,8 @@ import passportLocal from 'passport-local'
 import bCrypt from 'bcrypt'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 
-import UsersDaoMongoDB from '../daos/UsersMongoDB.js'
+import logger from '../logger.js'
+import UsersDao from '../daos/UsersMongoDB.js'
 
 function createHash(password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
@@ -13,7 +14,7 @@ const isValidPassword = (userPassword, password) => {
     return bCrypt.compareSync(password, userPassword)
 }
 
-const Users = new UsersDaoMongoDB();
+const Users = UsersDao.getInstance()
 
 const LocalStrategy = passportLocal.Strategy
 
@@ -31,7 +32,10 @@ passport.use(
             passport.username = user.username
             return done(null, user)
         })
-        .catch(err => done(err))
+        .catch(err => {
+            logger.error(`services.auth.login: ${err}`)
+            done(err)
+        })
     }
 ))
 
@@ -46,7 +50,6 @@ passport.use(
                 return done(null, false, {message: 'El nombre de usuario ya existe'})
             }
             if (!isValidPhoneNumber(req.body.phone)) {
-                console.log('nro invalido')
                 return done(null, false, {message: 'Numero de telefono invalido'})
             }
             /*
@@ -69,7 +72,7 @@ passport.use(
             })
         })
         .catch(err => {
-            console.log('err')
+            logger.error(`services.auth.register: ${err}`)
             return done(err)
         })
     })
@@ -85,6 +88,7 @@ passport.deserializeUser((id, done) => {
         return done(null, user)
     })
     .catch(err => {
+        logger.error(`services.auth.deserializeUser: ${err}`)
         return done(err)
     })
 })

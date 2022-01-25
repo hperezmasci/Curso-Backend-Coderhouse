@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <head>
-    <title>Carrito de Compras</title>
+    <title>e-Commerce</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div>
         <h1>
             <form action="/logout" method="post">
-                <tr><td>Bienvenido {{username}}</td>
+                <tr><td>{{username}}</td>
                 <td><button type="submit">Desloguearse</button></td></tr>
             </form>
         </h1>
@@ -16,17 +16,19 @@
     <hr>
     <table>
     <tr>
-        <td><a href="/">Home</a></td>
         <td><a href="/products">Productos</a></td>
+        <td>Carrito</td>
         <td><a href="/profile">Perfil</a></td>
     </tr>
     </table>
     <br>
+    <hr>
+    <br>
     <form action="/cart" method="post">
         <table>
             <tr><th colspan=4><h1>Carrito de Compras</h1></th></tr>
-            {{#if cart.products}}
-                {{#each cart.products}}
+            {{#if products}}
+                {{#each products}}
             <tr>
                 <td><img src="{{thumbnail}}"></img></td>
                 <td>{{title}}</td>
@@ -36,7 +38,11 @@
                 {{/each}}
             <tr></tr>
             <hr>
-            <tr><td colspan=4><button type="submit" name="action" value="purchase">Confirmar compra</button></td></tr>
+            <tr>
+                <td colspan=2><button type="submit" name="action" value="purchase">Confirmar compra</button></td>
+                <td colspan=2><button type="submit" name="action" value="emptyCart">Vaciar carrito</button></td>
+            </tr>
+
             {{else}}
             <tr><td colspan=4>No hay productos</td>
             {{/if}}

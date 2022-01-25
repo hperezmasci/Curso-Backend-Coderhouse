@@ -23,7 +23,7 @@ class CartsDaoMongoDB extends MongoDBContainer {
             return await this.getByField('username', username)            
         }
         catch (err) {
-            throw new Error(`getByUserName method: ${err}`)
+            throw new Error(`CartsDaoMongoDB.getByUserName: ${err}`)
         }
     }
 }

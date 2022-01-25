@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { response, Router } from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import multer from 'multer'
@@ -7,6 +7,7 @@ import passport from '../services/auth.js'
 import conf from '../config.js'
 import productsController from '../controllers/products.js'
 import cartController from '../controllers/cart.js'
+import profileController from '../controllers/profile.js'
 
 const storage = multer.diskStorage({
     destination: (req,file,cb)=>{
@@ -71,9 +72,7 @@ webRouter.post(
 )
 
 function isAuthenticated(req, res, next) {
-    // descomentar para entrar sin login
-    //return next()
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && passport.username) {
         req.username = passport.username
         next()
     }
@@ -92,13 +91,12 @@ webRouter.post('/logout', isAuthenticated, (req, res) => {
     })
 })
 
-webRouter.get('/', isAuthenticated, (req, res) => {
-    res.render('home.hbs', {username: passport.username})
-})
-
-webRouter.get('/products', isAuthenticated, productsController.getProducts)
-webRouter.post('/product', isAuthenticated, cartController.addProduct)
-webRouter.get('/cart', isAuthenticated, cartController.getCart)
-webRouter.post('/cart', isAuthenticated, cartController.processCart)
+webRouter
+  .get('/',         isAuthenticated, productsController.getProducts)
+  .get('/products', isAuthenticated, productsController.getProducts)
+  .get('/cart',     isAuthenticated, cartController.getCart)
+  .get('/profile',  isAuthenticated, profileController.getProfile)
+  .post('/product', isAuthenticated, cartController.addProduct)
+  .post('/cart',    isAuthenticated, cartController.processCart)
 
 export default webRouter

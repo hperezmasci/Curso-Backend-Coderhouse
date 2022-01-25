@@ -9,6 +9,8 @@ const schema = {
     phone:      { type: String, required: false }
 }
 
+let instance = null
+
 class UsersDaoMongoDB extends MongoDBContainer {
     constructor() {
         super('users', schema)
@@ -19,8 +21,13 @@ class UsersDaoMongoDB extends MongoDBContainer {
             return await this.getByField('username', username)            
         }
         catch (err) {
-            throw new Error(`getByUserName method: ${err}`)
+            throw new Error(`UsersDaoMongoDB.getByUserName: ${err}`)
         }
+    }
+
+    static getInstance() {
+        if (!instance) instance = new UsersDaoMongoDB()
+        return instance
     }
 }
 

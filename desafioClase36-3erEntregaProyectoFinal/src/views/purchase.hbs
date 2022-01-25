@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <head>
-    <title>Bienvenido al e-Commerce</title>
+    <title>e-Commerce</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div>
         <h1>
             <form action="/logout" method="post">
-                <tr><td>Bienvenido {{username}}</td>
+                <tr><td>{{username}}</td>
                 <td><button type="submit">Desloguearse</button></td></tr>
             </form>
         </h1>
@@ -22,4 +22,21 @@
     </tr>
     </table>
     <br>
+    <hr>
+    <br>
+    <table>
+        <tr><th colspan=3><h1>Tu compra se está procesando</h1></th></tr>
+        {{#if products}}
+            {{#each products}}
+        <tr>
+            <td><img src="{{thumbnail}}"></img></td>
+            <td>{{title}}</td>
+            <td>${{price}}</td>
+        </tr>
+            {{/each}}
+        <tr></tr>
+        {{else}}
+        <tr><td colspan=4>No hay productos</td>
+        {{/if}}
+    </table>
 </body>

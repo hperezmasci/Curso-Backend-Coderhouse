@@ -15,6 +15,16 @@ const twilioOptions = {
     to: 'whatsapp:' + args.to
 }
 
+const twOptions = {
+   body: 'Hola soy un WSP desde Node.js!',
+   mediaUrl: [ 'https://www.investingmoney.biz/public/img/art/xl/18012019161021Twilio-IoT.jpg' ],
+   from: 'whatsapp:+14155238886',
+   to: 'whatsapp:+5491155949311'
+}
+
+
+console.log(twilioOptions)
+
 try {
    const message = await client.messages.create(twilioOptions)
    console.log(message)

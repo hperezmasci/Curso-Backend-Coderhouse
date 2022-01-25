@@ -23,7 +23,7 @@ class MongoDBContainer {
            return normalizeObj(obj)
         }
         catch (err) {
-            throw new Error(`save method: ${err}`);  
+            throw new Error(`MongoDBContainer.save: ${err}`);  
         }
     }
 
@@ -33,7 +33,7 @@ class MongoDBContainer {
             return objects.map(normalizeObj)
         }
         catch (err) {
-            throw new Error(`getAll method: ${err}`);  
+            throw new Error(`MongoDBContainer.getAll: ${err}`);  
         }
     }
 
@@ -43,7 +43,7 @@ class MongoDBContainer {
             return normalizeObj(obj)
         }
         catch (err) {
-            throw new Error(`getById method: ${err}`);  
+            throw new Error(`MongoDBContainer.getById: ${err}`);  
         }
     }
 
@@ -54,7 +54,7 @@ class MongoDBContainer {
             return normalizeObj(await this.collection.findOne(obj))
         }
         catch (err) {
-            throw new Error(`getByField method: ${err}`);  
+            throw new Error(`MongoDBContainer.getByField: ${err}`);  
         }
     }
 
@@ -63,7 +63,7 @@ class MongoDBContainer {
             await this.collection.deleteMany()
         }
         catch (err) {
-            throw new Error(`deleteAll method: ${err}`);  
+            throw new Error(`MongoDBContainer.deleteAll: ${err}`);  
         }
     }
 
@@ -72,7 +72,7 @@ class MongoDBContainer {
             await this.collection.deleteOne({_id: id})
         }
         catch (err) {
-            throw new Error(`deleteById method: ${err}`);  
+            throw new Error(`MongoDBContainer.deleteById: ${err}`);  
         }
     }
 
@@ -81,7 +81,7 @@ class MongoDBContainer {
             await this.collection.updateOne({_id: obj.id}, obj)
         }
         catch (err) {
-            throw new Error(`update method: ${err}`);  
+            throw new Error(`MongoDBContainer.update: ${err}`);  
         }
     }
 
@@ -90,7 +90,7 @@ class MongoDBContainer {
             await mongoose.connection.close()
         }
         catch (err) {
-            throw new Error(`close method: ${err}`)
+            throw new Error(`MongoDBContainer.close: ${err}`)
         }
     }
 
