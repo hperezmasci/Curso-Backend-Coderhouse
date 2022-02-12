@@ -1,0 +1,1 @@
+Se podrían modificar los fronts para que llamen a APIs REST y rendereen en front, así no qudedan vistas separadas por tener controllers separados

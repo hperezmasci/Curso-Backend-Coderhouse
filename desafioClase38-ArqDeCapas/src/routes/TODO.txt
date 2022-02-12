@@ -1,0 +1,2 @@
+Faltan todos los routers
+Va a haber más rutas que en el original porque tenemos distintos controllers
