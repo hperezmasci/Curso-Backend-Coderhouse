@@ -4,7 +4,6 @@ import MongoStore from 'connect-mongo'
 import passport from '../services/auth.js'
 import conf from '../config.js'
 
-// para usar authRouter.use(sessionInit())
 function init(authRouter) {
     authRouter.use(session({
         store: MongoStore.create({
@@ -60,7 +59,6 @@ function logout(req, res) {
     })
 }
 
-// para usar: authRouter.get('/', isAuthenticated, authController.getIndex)
 function getIndex(req, res) {
     res.render('index.handlebars', {username: passport.username})
 }
