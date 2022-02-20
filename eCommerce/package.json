@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "name": "ecommerce",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Final work for CoderHouse Backend Course",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
