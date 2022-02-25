@@ -14,7 +14,6 @@ const Users = UsersDao.getInstance()
 async function getCart(username) {
     let cart = await Carts.getByUsername(username)
     if (!cart) {
-        console.log('XXX TODO: falta domicilio de entrega')
         cart = await Carts.save({
             'username': username,
             'timestamp': Date.now(),

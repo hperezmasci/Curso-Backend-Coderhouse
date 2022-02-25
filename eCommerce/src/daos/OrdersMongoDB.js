@@ -5,6 +5,7 @@ const schema = {
     timestamp: { type: Number, required: true },
     products: { type: Array, required: true },
     status: { type: String, required: true},
+    address: { type: String, required: true},
     email: { type: String, required: true}
 }
 

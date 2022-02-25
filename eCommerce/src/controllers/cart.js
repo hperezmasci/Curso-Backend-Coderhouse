@@ -22,7 +22,7 @@ async function addProduct(req, res) {
         return res.send(cart)
     }
     catch (e) {
-        const code = e.message === 'BAD_PRODUCT' ? 400 : 404
+        const code = e.message === 'BAD_PARAM' ? 400 : 404
         if (cartService.Errors[e.message])
             return res.status(code).json({error: cartService.Errors[e.message]})
         console.error(`controllers.cart.addProduct: ${e}`)
@@ -40,7 +40,7 @@ async function updateProduct(req, res) {
         return res.send(cart)
     }
     catch (e) {
-        const code = e.message === 'BAD_PRODUCT' ? 400 : 404
+        const code = e.message === 'BAD_PARAM' ? 400 : 404
         if (cartService.Errors[e.message])
             return res.status(code).json({error: cartService.Errors[e.message]})
         console.error(`controllers.cart.updateProduct: ${e}`)

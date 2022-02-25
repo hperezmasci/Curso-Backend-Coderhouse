@@ -58,7 +58,8 @@ const conf = {
             auth: {
                 user: process.env.ETHEREAL_USER,
                 pass: process.env.ETHEREAL_PASSWORD
-            }
+            },
+            sender: process.env.SENDER || 'eCommerce@yopmail.com'
         }
 }
 

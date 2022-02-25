@@ -17,8 +17,8 @@ async function getProduct(id) {
 }
 
 async function createProduct(prod) {
-    const {title, price, thumbnail} = prod
-    if (title === undefined || price === undefined || thumbnail === undefined)
+    const {title, price, thumbnail, category} = prod
+    if (title === undefined || price === undefined || thumbnail === undefined || category === undefined)
         throw new Error('PARAM_MISSING')
     prod.timestamp = Date.now()
     return await Products.save(prod)
