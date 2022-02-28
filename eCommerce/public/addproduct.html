@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <title>Add Product</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+     <form action="/productos" enctype="multipart/form-data" method="post">
+        <table>
+            <th colspan=2>Alta de Productos</th>
+            <tr><td><input type="text" id="title" name="title" placeholder="Título"></td></tr>
+            <tr><td><input type="number" id="price" name="price" placeholder="Precio"></td></tr>
+            <tr><td><input type="text" id="category" name="category" placeholder="Categoría"></td></tr>
+            <tr><td><input type="file" id="thumbnail" name="thumbnail">Imagen</td></tr>
+        </table>
+        <br>
+        <input type="submit">
+    </form>
+</body>

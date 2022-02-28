@@ -1,4 +1,41 @@
+import multer from 'multer'
+import { v4 as uuidv4 } from 'uuid';
+
 import productsService from '../services/products.js'
+
+/***
+ * Creating a product implies uploading a file
+ * so we use multer and HTML form POSTs instead of a REST API
+ */
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, `${uuidv4()}-${file.originalname}`)
+    }
+})
+
+function uploadImg(req, res, next) {multer({ storage }).single('thumbnail')(req, res, next)}
+
+async function createProduct(req, res) {
+    const file = req.file // seteado por multer que debe llamarse antes
+    if (!file) return res.status(400).json({error: 'Error uploading file'})
+    req.body.thumbnail = file.path
+    try {
+        const prod = await productsService.createProduct(req.body)
+        return res.json(prod)
+    }
+    catch (e) {
+        if (e.message === 'PARAM_MISSING')
+            return res.status(400).json({error: productsService.Errors[e.message]})
+        else {
+            console.error(`controller.products.createProduct: ${e}`)
+            return res.status(500).send({error: 'Error creating product'})
+        }
+    }
+}
 
 async function getProducts(req, res) {
     try {
@@ -26,22 +63,6 @@ async function getProduct(req, res) {
     }
 }
 
-async function createProduct(req, res) {
-    try {
-        const prod = await productsService.createProduct(req.body)
-        return res.json(prod)
-    }
-    catch (e) {
-        if (e.message === 'PARAM_MISSING')
-            return res.status(400).json({error: productsService.Errors[e.message]})
-        else {
-            console.error(`controller.products.createProduct: ${e}`)
-            return res.status(500).send({error: 'Error creating product'})
-        }
-    }
-}
-
-/// XXX TODO: convertir a función controller que llama a funcion servicio
 async function updateProduct(req, res) {
     try {
         const prod = req.body
@@ -66,9 +87,10 @@ async function deleteProduct(req, res) {
 }
 
 export default {
+    uploadImg,
+    createProduct,
     getProducts,
     getProduct,
-    createProduct,
     updateProduct,
     deleteProduct
 }

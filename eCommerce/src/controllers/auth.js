@@ -1,22 +1,10 @@
 import cfg from '../config.js'
 import authService from '../services/auth.js'
 
-async function register(req, res) {
-    const { username, password, name } = req.body
-    if (!username || !password) return res.status(400).json({error: 'Bad request'})
-
-    try {
-        const access_token = await authService.register({username, password, name})
-        res.json({access_token})
-    }
-    catch (e) {
-        if (authService.Errors[e.message]) {
-            const code = e.message === 'USER_EXIST' ? 409 : 400
-            return res.status(code).json({error: authService.Errors[e.message]})
-        }
-        console.error(`controller.auth.register: ${e}`)
-        return res.status(500).json({error: 'Unexpected error'})
-    }
+async function webLogin(req, res) {
+    // XXX TODO: soportar login por sesiones
+    console.log('XXX TODO: soportar login por sesiones')
+    await login(req, res)
 }
 
 async function login(req, res) {
@@ -31,6 +19,24 @@ async function login(req, res) {
         if (authService.Errors[e.message])
             return res.status(401).json({error: authService.Errors[e.message]})
         console.error(`controller.auth.login: ${e.message}`)
+        return res.status(500).json({error: 'Unexpected error'})
+    }
+}
+
+async function register(req, res) {
+    const { username, password, name } = req.body
+    if (!username || !password) return res.status(400).json({error: 'Bad request'})
+
+    try {
+        const access_token = await authService.register({username, password, name})
+        res.json({access_token})
+    }
+    catch (e) {
+        if (authService.Errors[e.message]) {
+            const code = e.message === 'USER_EXIST' ? 409 : 400
+            return res.status(code).json({error: authService.Errors[e.message]})
+        }
+        console.error(`controller.auth.register: ${e}`)
         return res.status(500).json({error: 'Unexpected error'})
     }
 }
@@ -64,6 +70,7 @@ function adminAuth(req, res, next) {
 }
 
 export default {
+    webLogin,
     register,
     login,
     auth,
