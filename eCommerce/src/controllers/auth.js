@@ -1,11 +1,4 @@
-import cfg from '../config.js'
 import authService from '../services/auth.js'
-
-async function webLogin(req, res) {
-    // XXX TODO: soportar login por sesiones
-    console.log('XXX TODO: soportar login por sesiones')
-    await login(req, res)
-}
 
 async function login(req, res) {
     const { username, password } = req.body
@@ -70,7 +63,6 @@ function adminAuth(req, res, next) {
 }
 
 export default {
-    webLogin,
     register,
     login,
     auth,

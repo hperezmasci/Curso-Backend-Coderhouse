@@ -40,7 +40,7 @@ const conf = {
     },
     auth: {
         secret,
-        expire: process.env.EXPIRE || '60s'
+        expire: process.env.EXPIRE || 60
     },
     db: {
         cnxStr: process.env.DB_CNXSTR || 'mongodb://localhost/ecommerce',
