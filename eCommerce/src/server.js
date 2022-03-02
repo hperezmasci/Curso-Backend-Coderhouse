@@ -11,7 +11,6 @@ import cartRouter from './routes/cart.js'
 import ordersRouter from './routes/orders.js'
 import cfgRouter from './routes/cfg.js'
 import chatRouter from './routes/chat.js'
-import webAuthRouter from './routes/webAuth.js'
 import messagesController from './controllers/messages.js'
 
 
@@ -33,7 +32,7 @@ app.use('/carrito/', cartRouter)
 app.use('/ordenes/', ordersRouter)
 app.use('/cfg/', cfgRouter)
 app.use('/chat', chatRouter)
-app.use('/web/', webAuthRouter)
+app.use('/', (req, res, next) => res.redirect('/chat'))
 
 const httpServer = createServer(app)    // nuevo server http, reemplazando el de express
 
