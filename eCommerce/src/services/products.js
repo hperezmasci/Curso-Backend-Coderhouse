@@ -37,7 +37,10 @@ async function updateProduct(prod) {
 }
 
 async function deleteProduct(id) {
-    return await Products.deleteById(id)
+    const prod = await getProduct(id)
+    await removeImage(prod)
+    await Products.deleteById(prod.id)
+    return prod
 }
 
 // Auxiliar function: move image file to it's final name and path
@@ -53,6 +56,13 @@ async function moveImage(prod) {
 
     await fs.rename(prod.thumbnail, newPath)
     prod.thumbnail = newPublicPath
+}
+
+async function removeImage(prod) {
+    try {
+        await fs.unlink(`public/${prod.thumbnail}`)
+    }
+    catch (e) {console.error(`services.products.removeImage: error removing image: ${e}`)}
 }
 
 export default {
