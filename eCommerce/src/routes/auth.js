@@ -5,7 +5,7 @@ import authController from '../controllers/auth.js'
 const authRouter = new Router()
 
 authRouter
-    .post('/register', authController.register)
-    .post('/login', authController.login)
+    .post('/usuarios', authController.register)
+    .post('/tokens', authController.createToken)
 
 export default authRouter

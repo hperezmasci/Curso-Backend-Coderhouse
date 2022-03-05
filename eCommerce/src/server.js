@@ -7,7 +7,7 @@ import cfg from './config.js'
 
 import authRouter from './routes/auth.js'
 import productsRouter from './routes/products.js'
-import cartRouter from './routes/cart.js'
+import cartsRouter from './routes/carts.js'
 import ordersRouter from './routes/orders.js'
 import cfgRouter from './routes/cfg.js'
 import chatRouter from './routes/chat.js'
@@ -26,11 +26,11 @@ app.set('views', './src/views')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(authRouter)
-app.use('/productos/', productsRouter)
-app.use('/carrito/', cartRouter)
-app.use('/ordenes/', ordersRouter)
-app.use('/cfg/', cfgRouter)
+app.use('/api', authRouter)
+app.use('/api/productos', productsRouter)
+app.use('/api/carritos', cartsRouter)
+app.use('/api/ordenes', ordersRouter)
+app.use('/cfg', cfgRouter)
 app.use('/chat', chatRouter)
 app.use('/', (req, res, next) => res.redirect('/chat'))
 

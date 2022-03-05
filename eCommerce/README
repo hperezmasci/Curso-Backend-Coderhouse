@@ -1,0 +1,43 @@
+Cómo probar el proyecto
+=======================
+
+URL Heroku: https://ecommerce-cursobe-ch.herokuapp.com/
+
+En src/*.env están las variables de ambiente. Particularmente nos interesa la ADMIN, que define cuál es el login del usuario admin.
+
+Se incluyen postman collection y environments en la carpeta tests
+
+Hay 2 environments, uno para correr local (puede ser heroku local o node nativo, aunque en el ejemplo que se entrega el port es para el 5000 que elije heroku local, ver variable URL_BASE)
+
+Requests:
+---------
+
+Con POST Usuario Admin creamos dicho usuario (hernan.perez@gmail.com)
+
+Con POST Usuario Final creamos un usuario final (pepe@gmail.com)
+
+Con POST Token Admin obtenemos un token de admin cada vez que lo necesitemos
+
+Con POST Token Usuario Final obtenemos un token de usuario final cada vez que lo necesitemos
+
+Sólo admin puede realizar ABM de productos (probar con Token Usuario final para ver cómo se prohibe su acceso)
+
+Notar que POST Producto admite en el campo thumbnail subir un archivo (facilidad soportada por postman), el resto de los campos están seteados como campos json. Así logramos enviar una imagen junto al resto de los parámetros necesarios para crear un producto.
+
+El PUT Producto trabaja pisando todo el objeto. Se recomienda hacer un GET Producto o GET Productos primero, que setean el PRODUCT_ID y la variable THUMBNAIL, dado que la idea es modificar el precio o el título del producto, pero no el thumbnail cuyo nombre contiene el ID de producto.
+
+PUT Actualizar producto en carrito soporta sólo cambiar la cantidad de productos de un producto que esté en carrito
+
+POST Agregar producto en carrito agrega el producto si no existe, y si existe suma la cantidad indicada del producto a la cantidad de ese producto que ya está en carrito.
+
+POST Orden genera una orden y vacía el carrito
+
+GET Ordenes muestra todas las ordenes creadas.
+
+chat
+----
+Simplemente entrando en / o /chat se va al mismo. Es un chat genérico
+
+vista de configuración del server
+---------------------------------
+Se observa en /cfg. Notar que se trabajó para ocultr los secrets

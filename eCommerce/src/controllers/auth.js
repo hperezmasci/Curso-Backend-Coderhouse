@@ -1,17 +1,17 @@
 import authService from '../services/auth.js'
 
-async function login(req, res) {
+async function createToken(req, res) {
     const { username, password } = req.body
     if (!username || !password) return res.status(400).json({error: 'Bad request'})
 
     try {
-        const access_token = await authService.login(username, password)
+        const access_token = await authService.createToken(username, password)
         res.json({username, access_token})
     }
     catch (e) {
         if (authService.Errors[e.message])
             return res.status(401).json({error: authService.Errors[e.message]})
-        console.error(`controller.auth.login: ${e.message}`)
+        console.error(`controller.auth.createToken: ${e.message}`)
         return res.status(500).json({error: 'Unexpected error'})
     }
 }
@@ -64,7 +64,7 @@ function adminAuth(req, res, next) {
 
 export default {
     register,
-    login,
+    createToken,
     auth,
     adminAuth
 }

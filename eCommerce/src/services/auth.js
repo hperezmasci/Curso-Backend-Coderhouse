@@ -26,6 +26,7 @@ const isValidPassword = (userPassword, password) => {
 }
 
 function generateToken(data) {
+    console.log('expire: ', cfg.auth.expire)
     const token = jwt.sign(data, cfg.auth.secret, { expiresIn: cfg.auth.expire })
     return token
 }
@@ -69,7 +70,7 @@ async function register(user) {
     return access_token
 }
 
-async function login(username, password) {
+async function createToken(username, password) {
     const user = await Users.getByUsername(username)
 
     if (!user) throw new Error('NOT_EXIST')
@@ -83,5 +84,5 @@ export default {
     Errors,
     auth,
     register,
-    login
+    createToken
 }

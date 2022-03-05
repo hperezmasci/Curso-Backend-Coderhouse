@@ -6,35 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"hernan.perez@gmail.com\",\n    \"password\": \"1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
+			"name": "Usuario Admin",
 			"event": [
 				{
 					"listen": "test",
@@ -60,14 +32,130 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/login",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/usuarios",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"login"
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Final",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = JSON.parse(responseBody)",
+							"pm.environment.set(\"TOKEN\", jsonData.access_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pepe@gmail.com\",\n    \"password\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usuarios",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = JSON.parse(responseBody)",
+							"pm.environment.set(\"TOKEN\", jsonData.access_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"hernan.perez@gmail.com\",\n    \"password\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tokens",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token Usuario Final",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = JSON.parse(responseBody)",
+							"pm.environment.set(\"TOKEN\", jsonData.access_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pepe@gmail.com\",\n    \"password\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tokens",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tokens"
 					]
 				}
 			},
@@ -94,17 +182,17 @@
 						{
 							"key": "thumbnail",
 							"type": "file",
-							"src": "/home/hernan/Descargas/ps5.jpeg"
+							"src": "/home/hernan/Descargas/xboxsx.jpeg"
 						},
 						{
 							"key": "title",
-							"value": "ps5",
+							"value": "XBox Series X",
 							"contentType": "application/json",
 							"type": "text"
 						},
 						{
 							"key": "price",
-							"value": "20000",
+							"value": "190000",
 							"contentType": "application/json",
 							"type": "text"
 						},
@@ -122,13 +210,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/productos/",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/productos/",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
+						"api",
 						"productos",
 						""
 					]
@@ -138,87 +225,19 @@
 		},
 		{
 			"name": "Producto",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"XBOX360\",\n    \"price\": 35000,\n    \"thumbnail\": \"{{THUMBNAIL}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const prod = JSON.parse(responseBody)",
+							"pm.environment.set(\"PRODUCT_ID\", prod.id)",
+							"pm.environment.set(\"THUMBNAIL\", prod.thumbnail)"
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/productos/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"productos",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "{{PRODUCT_ID}}"
-						}
-					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Producto",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/productos/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"productos",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "{{PRODUCT_ID}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Producto",
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -233,13 +252,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/productos/:id",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/productos/:id",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
+						"api",
 						"productos",
 						":id"
 					],
@@ -284,13 +302,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/productos",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/productos",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
+						"api",
 						"productos"
 					]
 				}
@@ -298,7 +315,7 @@
 			"response": []
 		},
 		{
-			"name": "Carrito",
+			"name": "Producto",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -310,17 +327,67 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"XBox Series X\",\n    \"price\": 200000,\n    \"thumbnail\": \"{{THUMBNAIL}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/productos/:id",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"productos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{PRODUCT_ID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/carrito",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/productos/:id",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"carrito"
+						"api",
+						"productos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{PRODUCT_ID}}"
+						}
 					]
 				}
 			},
@@ -351,14 +418,41 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/carrito",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/carritos",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"carrito"
+						"api",
+						"carritos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/carritos",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"carritos"
 					]
 				}
 			},
@@ -389,14 +483,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/carrito/:id",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/carritos/:id",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"carrito",
+						"api",
+						"carritos",
 						":id"
 					],
 					"variable": [
@@ -425,20 +518,19 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/carrito/:id",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/carritos/:id",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"carrito",
+						"api",
+						"carritos",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": ""
+							"value": "{{PRODUCT_ID}}"
 						}
 					]
 				}
@@ -461,21 +553,20 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/carrito",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/carritos",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
-						"carrito"
+						"api",
+						"carritos"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Ordenes",
+			"name": "Orden",
 			"event": [
 				{
 					"listen": "test",
@@ -510,13 +601,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ordenes",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/ordenes",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
+						"api",
 						"ordenes"
 					]
 				}
@@ -550,13 +640,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ordenes",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/api/ordenes",
 					"host": [
-						"localhost"
+						"{{BASE_URL}}"
 					],
-					"port": "8080",
 					"path": [
+						"api",
 						"ordenes"
 					]
 				}

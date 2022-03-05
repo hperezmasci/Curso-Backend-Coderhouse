@@ -1,4 +1,3 @@
-import cfg from '../config.js'
 import cfgService from '../services/cfg.js'
 
 function showConfig(req, res) {
